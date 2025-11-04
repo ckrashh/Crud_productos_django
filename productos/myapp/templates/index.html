@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Encabezado -->
+    <div class="jumbotron bg-light p-4 mb-4">
+        <h1 class="display-4">¡Bienvenido a tu Tienda!</h1>
+        <p class="lead">Gestiona tus productos, categorías y etiquetas de manera fácil y eficiente.</p>
+        <hr class="my-4">
+        <div class="d-grid gap-2 d-md-flex">
+            <a class="btn btn-primary btn-lg me-md-2" href="{% url 'producto-list' %}" role="button">
+                <i class="bi bi-box-seam"></i> Ver Productos
+            </a>
+            <a class="btn btn-outline-secondary btn-lg" href="{% url 'categoria-list' %}" role="button">
+                <i class="bi bi-tag"></i> Ver Categorías
+            </a>
+        </div>
+    </div>
+
+    <!-- Categorías Destacadas -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h2><i class="bi bi-tag-fill"></i> Categorías Destacadas</h2>
+            <hr>
+            <div class="row">
+                {% for categoria in categorias %}
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ categoria.nombre }}</h5>
+                            <p class="card-text">{{ categoria.descripcion|truncatechars:50 }}</p>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <a href="{% url 'categoria-detail' categoria.pk %}" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-eye-fill"></i> Ver Categoría
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-md-12">
+                    <div class="alert alert-info">
+                        No hay categorías registradas.
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Productos Recientes -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h2><i class="bi bi-box-seam-fill"></i> Productos Recientes</h2>
+            <hr>
+            <div class="row">
+                {% for producto in productos_recientes %}
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ producto.nombre }}</h5>
+                            <p class="card-text">${{ producto.precio }}</p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <i class="bi bi-tag-fill"></i> {{ producto.categoria.nombre }}
+                                </small>
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <a href="{% url 'producto-detail' producto.pk %}" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-eye-fill"></i> Ver Producto
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-md-12">
+                    <div class="alert alert-info">
+                        No hay productos registrados.
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Estadísticas Rápidas -->
+    <div class="row">
+        <div class="col-md-12">
+            <h2><i class="bi bi-graph-up"></i> Estadísticas Rápidas</h2>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card text-white bg-primary mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Total de Categorías</h5>
+                            <p class="card-text display-4">{{ categorias|length }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-success mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Total de Productos</h5>
+                            <p class="card-text display-4">{% if productos_recientes %}{{ productos_recientes|length }}{% else %}0{% endif %}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-info mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Etiquetas Populares</h5>
+                            <p class="card-text display-4">--</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

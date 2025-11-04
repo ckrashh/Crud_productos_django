@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Estadísticas Avanzadas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1><i class="bi bi-graph-up"></i> Estadísticas Avanzadas</h1>
+    <hr>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Productos</h5>
+                    <p class="card-text display-4">{{ total_productos }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Categorías</h5>
+                    <p class="card-text display-4">{{ total_categorias }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Precio Promedio</h5>
+                    <p class="card-text display-4">${{ precio_promedio|floatformat:2 }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Categoría con Más Productos</h5>
+                    {% if categoria_con_mas_productos %}
+                    <p class="card-text">
+                        <strong>{{ categoria_con_mas_productos.nombre }}</strong> con {{ categoria_con_mas_productos.num_productos }} productos.
+                    </p>
+                    <a href="{% url 'categoria-detail' categoria_con_mas_productos.pk %}" class="btn btn-primary">
+                        <i class="bi bi-eye-fill"></i> Ver Categoría
+                    </a>
+                    {% else %}
+                    <p class="card-text">No hay categorías registradas.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

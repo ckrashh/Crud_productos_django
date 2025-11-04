@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Productos por Categoría{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1><i class="bi bi-tag-fill"></i> Productos en {{ productos.first.categoria.nombre }}</h1>
+    <hr>
+
+    {% if productos %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Etiquetas</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <td>{{ producto.nombre }}</td>
+                    <td>${{ producto.precio }}</td>
+                    <td>
+                        {% for etiqueta in producto.etiquetas.all %}
+                        <span class="badge bg-secondary">{{ etiqueta.nombre }}</span>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a href="{% url 'producto-detail' producto.pk %}" class="btn btn-sm btn-info">
+                            <i class="bi bi-eye-fill"></i> Ver
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info">No hay productos en esta categoría.</div>
+    {% endif %}
+</div>
+{% endblock %}

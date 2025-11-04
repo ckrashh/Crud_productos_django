@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Eliminar Etiqueta{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">¿Estás seguro de eliminar esta etiqueta?</h1>
+
+<div class="alert alert-warning">
+    <p>Esta acción no se puede deshacer.</p>
+    <p><strong>{{ object.nombre }}</strong> será eliminado permanentemente.</p>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">
+        <i class="bi bi-trash-fill"></i> Confirmar
+    </button>
+    <a href="{% url 'etiqueta-list' %}" class="btn btn-secondary">
+        <i class="bi bi-x-lg"></i> Cancelar
+    </a>
+</form>
+{% endblock %}

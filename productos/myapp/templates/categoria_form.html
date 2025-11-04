@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if object %}Editar Categoría{% else %}Crear Categoría{% endif %}{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">{% if object %}Editar Categoría{% else %}Crear Categoría{% endif %}</h1>
+
+<form method="post" class="needs-validation" novalidate>
+    {% csrf_token %}
+    <div class="card">
+        <div class="card-body">
+            <div class="mb-3">
+                <label for="{{ form.nombre.id_for_label }}" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="{{ form.nombre.id_for_label }}" name="nombre" value="{% if form.nombre.value %}{{ form.nombre.value }}{% endif %}" required>
+                <div class="invalid-feedback">
+                    Por favor, ingresa un nombre para la categoría.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.descripcion.id_for_label }}" class="form-label">Descripción</label>
+                <textarea class="form-control" id="{{ form.descripcion.id_for_label }}" name="descripcion" rows="3">{% if form.descripcion.value %}{{ form.descripcion.value }}{% endif %}</textarea>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Guardar
+            </button>
+            <a href="{% url 'categoria-list' %}" class="btn btn-secondary">
+                <i class="bi bi-x-lg"></i> Cancelar
+            </a>
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Productos con Anotaciones{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1><i class="bi bi-file-earmark-text-fill"></i> Productos con Anotaciones</h1>
+    <hr>
+
+    {% if productos %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre Completo</th>
+                    <th>Precio</th>
+                    <th>Precio con IVA</th>
+                    <th>Número de Etiquetas</th>
+                    <th>Categoría</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <td>{{ producto.nombre_completo }}</td>
+                    <td>${{ producto.precio }}</td>
+                    <td>${{ producto.precio_con_iva|floatformat:2 }}</td>
+                    <td>{{ producto.num_etiquetas }}</td>
+                    <td>{{ producto.nombre_categoria }}</td>
+                    <td>
+                        <a href="{% url 'producto-detail' producto.pk %}" class="btn btn-sm btn-info">
+                            <i class="bi bi-eye-fill"></i> Ver
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info">No hay productos registrados.</div>
+    {% endif %}
+</div>
+{% endblock %}

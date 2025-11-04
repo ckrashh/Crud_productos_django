@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalles de la Categoría: {{ categoria.nombre }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Detalles de la Categoría</h2>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">{{ categoria.nombre }}</h4>
+            <p class="card-text"><strong>Descripción:</strong> {{ categoria.descripcion|default:"Sin descripción" }}</p>
+
+            <hr>
+
+            <h5>Productos en esta Categoría</h5>
+            {% if categoria.productos.exists %}
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Etiquetas</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for producto in categoria.productos.all %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'producto-detail' producto.pk %}" class="text-decoration-none">
+                                        {{ producto.nombre }}
+                                    </a>
+                                </td>
+                                <td>${{ producto.precio }}</td>
+                                <td>
+                                    {% for etiqueta in producto.etiquetas.all %}
+                                        <span class="badge bg-secondary me-1">{{ etiqueta.nombre }}</span>
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'producto-detail' producto.pk %}" class="btn btn-sm btn-info">
+                                        <i class="bi bi-eye-fill"></i> Ver
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p>No hay productos asociados a esta categoría.</p>
+            {% endif %}
+        </div>
+        <div class="card-footer text-end">
+            <a href="{% url 'categoria-update' categoria.pk %}" class="btn btn-warning">
+                <i class="bi bi-pencil-square"></i> Editar Categoría
+            </a>
+            <a href="{% url 'categoria-list' %}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Volver a la lista
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
