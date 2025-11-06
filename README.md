@@ -146,7 +146,6 @@ Para dudas o colaboración puedes contactar con el autor:
 
 GitHub: @ckrashh
 
-Email: (añade si lo deseas)
-
 ¡Gracias por revisar el proyecto!
+
 
