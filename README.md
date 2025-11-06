@@ -31,7 +31,7 @@ Permite realizar operaciones básicas de **CRUD** (Crear, Leer, Actualizar, Elim
 - Python  
 - Django  
 - HTML / CSS (plantillas básicas)  
-- SQLite (por defecto)  
+- PostgresSQL  
 - Git & GitHub (control de versiones)  
 
 ---
@@ -149,3 +149,4 @@ GitHub: @ckrashh
 Email: (añade si lo deseas)
 
 ¡Gracias por revisar el proyecto!
+
